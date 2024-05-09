@@ -2,10 +2,9 @@
 import { ref, onMounted, computed, watch } from "vue";
 
 const todos = ref([]);
-const name = ref("");
 
 const input_content = ref("");
-const input_categories = ref(null);
+const input_category = ref(null);
 
 const todos_asc = computed(() =>
   todos.value.sort((a, b) => {
@@ -13,33 +12,49 @@ const todos_asc = computed(() =>
   })
 );
 
-const addtodo = () => {
+const addTodo = () => {
   if (input_content.value.trim() === "" || input_category.value === null) {
     return;
   }
-   
+
   todos.value.push({
     content: input_content.value,
-    category: input_categories.value,
+    category: input_category.value,
     done: false,
-    createdAt: new Date.getTime()
+    createdAt: new Date().getTime(),
   });
- };
+};
 
+ const deleteTodo = todo => {
+  todos.value = todos.value.filter(t => t !== todo) 
+};
 
+watch(
+  todos,
+  (newValue) => {
+    localStorage.setItem("todos", JSON.stringify(newValue));
+  },
+  { deep: true }
+);
 
+onMounted(() => {
+  todos.value = JSON.parse(localStorage.getItem("todos")) || [];
+});
 </script>
+
+
+
 <template>
-  <main class="app">
+  <main class="App">
     <section class="container">
       <h3>TODO</h3>
-      <Form @submit.prevent="addtodo">
+      <form @submit.prevent="addTodo">
         <input
           type="text"
-          placeholder="e.g make a video"
+          placeholder="e.g watch a Vue course on udemy"
           v-model="input_content"
         />
-      </Form>
+      </form>
     </section>
 
     <section class="create-todo">
@@ -71,11 +86,35 @@ const addtodo = () => {
         </label>
       </div>
 
-      <input type="submit" value="Add todo" />
+      <button class="btn" @click="addTodo">Add Todo</button>
     </section>
 
     <section class="todo-list">
-      <h3>Todo-list</h3>
+      <h4>TODO LIST</h4>
+      <div class="list">
+        <div
+          v-for="todo in todos_asc"
+          :class="`todo-item ${todo.done && 'done'}`"
+        >
+
+        <label>
+          <input
+            type="checkbox"
+            v-model="todo.done"
+          />
+          <span :class="`bubble ${todo.category}` "></span>
+        </label>
+     
+        <div class="todo-content">
+          <input type="text" v-model="todo.content" />
+        </div>
+ 
+        <div class="actions">
+          <button class="delete" @click="deleteTodo(todo)">Delete</button>
+        </div>
+
+      </div>
+      </div>
     </section>
   </main>
 </template>

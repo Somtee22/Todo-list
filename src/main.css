@@ -1,13 +1,12 @@
 :root {
-	--primary: #EA40A4;
 	--business:#eed93abf;
 	--personal: #18930abf;
 	--light: #EEE;
 	--grey: #888;
 	--dark: #313154;
-	--danger: #ff5b57;
+	--danger: #111110;
 
-	--shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	--shadow: 0 1px 3px #18930abf;
 
 	--business-glow: 0px 0px 4px #eed93abf;
 	--personal-glow: 0px 0px 4px #18930abf;
@@ -41,15 +40,17 @@ section {
 }
 
 h3 {
-	color: var(--dark);
-	font-size: 1rem;
-	font-weight: 400;
-	margin-bottom: 0.5rem;
+	color: white;
+	font-size: 3rem;
+	font-weight: 600;
+	margin: 1rem 1rem 1rem 1rem;
+    padding-top: 2rem;
+    letter-spacing: 2rem;
 }
 
 h4 {
 	color: var(--grey);
-	font-size: 0.875rem;
+	font-size: 1rem;
 	font-weight: 700;
 	margin-top: 1rem;
     margin-bottom: 1rem;
@@ -72,6 +73,17 @@ h4 {
 	box-shadow: var(--shadow);
 	margin-bottom: 1.5rem;
 }
+.container input[type="text"] {
+	display: block;
+	width: 100%;
+	font-size: 1.125rem;
+	padding: 1rem 1.5rem;
+	color: var(--dark);
+	background-color: #FFF;
+	border-radius: 0.5rem;
+	box-shadow: var(--shadow);
+	margin-top: 5rem;
+}
 
 .create-todo .options {
 	display: grid;
@@ -79,6 +91,8 @@ h4 {
 	grid-gap: 1rem;
 	margin-bottom: 1.5rem;
 }
+
+
 
 .create-todo .options label {
 	display: flex;
@@ -138,11 +152,11 @@ input:checked ~ .bubble::after {
 
 .create-todo .options label div {
 	color: var(--dark);
-	font-size: 1.125rem;
+	font-size: 1.2rem;
 	margin-top: 1rem;
 }
 
-.create-todo input[type="submit"] {
+.btn {
 	display: block;
 	width: 100%;
 	font-size: 1.125rem;
@@ -157,6 +171,11 @@ input:checked ~ .bubble::after {
 
 .create-todo input[type="submit"]:hover {
 	opacity: 0.75;
+}
+
+.todo-list{
+    width: 80%;
+    margin: auto;
 }
 
 .todo-list .list {
@@ -197,13 +216,15 @@ input:checked ~ .bubble::after {
 	display: block;
 	padding: 0.5rem;
 	border-radius: 0.25rem;
-	color: #FFF;
+	color: var(--business);
 	cursor: pointer;
 	transition: 0.2s ease-in-out;
 }
 
 .todo-item .actions button:hover {
 	opacity: 0.75;
+    background-color: var(--personal);
+    color: var(--danger);
 }
 
 .todo-item .actions .edit {
@@ -217,7 +238,7 @@ input:checked ~ .bubble::after {
 
 .todo-item.done .todo-content input {
 	text-decoration: line-through;
-	color: var(--grey);
+	color: var(--business);
 }
 .container{
     width: 80%;
@@ -228,4 +249,5 @@ input:checked ~ .bubble::after {
     background-size: contain;
     margin: auto;
     margin-top: 20px;
+
 }
